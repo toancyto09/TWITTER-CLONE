@@ -10,6 +10,7 @@ const useFollow = () => {
         const res = await fetch(`/api/users/follow/${userId}`, {
           method: "POST",
         });
+
         const data = await res.json();
         if (!res.ok) {
           throw new Error(data.error || "Something went wrong!");
@@ -25,12 +26,12 @@ const useFollow = () => {
         queryClient.invalidateQueries({ queryKey: ["authUser"] }),
       ]);
     },
-    onError: () => {
+    onError: (error) => {
       toast.error(error.message);
     },
   });
 
   return { follow, isPending };
-}
+};
 
-export default useFollow
+export default useFollow;
